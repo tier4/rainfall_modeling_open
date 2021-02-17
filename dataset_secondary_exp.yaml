@@ -1,0 +1,56 @@
+#######################
+#  LOCATION OF FILES
+#######################
+path_to_target_value_file: "secondary_experiment/rainfall_table.csv"
+path_to_training_data:  "secondary_experiment/raw_data"
+path_to_dataset: "secondary_experiment/datasets"
+
+#########################
+#  CROP BOX PARAMETERS
+#########################
+crop:
+  x_range:
+    crop: True
+    min: -5
+    max: 5
+  y_range:
+    crop: True
+    min: -5
+    max: 5
+  z_range:
+    crop: True
+    min: -1
+    max: 4
+  intensity_range:
+    crop: True
+    min: 0
+    max: 20
+
+inner_crop:
+  x_range:
+    crop: True
+    min: -0.8
+    max: 0.8
+  y_range:
+    crop: True
+    min: -2
+    max: 1.2
+  z_range:
+    crop: True
+    min: -1
+    max: -0.4
+
+###################################
+#  DATASET GENERATION PARAMETERS
+###################################
+# Wheather or not to shuffle the samples in the dataset
+shuffle: True
+# Degree of compressing files (tradeoff between speed and storage)
+compression: 1
+# Number of samples to store in a single training sample (for computing statistics)
+#     1 sample <==> 0.1 sec
+consecutive_samples: 100
+# Sampling interval (ex: 140 / 10 => sequence of 14 samples)
+sample_interval: 1
+# Sample stepping
+sample_stepping: 10
