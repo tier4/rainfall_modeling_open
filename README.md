@@ -8,9 +8,9 @@ Python3
   - packages: 
     - matplotlib
     - numpy
-    - scikit-learn 
     - pybind11
     - pyyaml
+    - scikit-learn
     - tqdm
 
 
