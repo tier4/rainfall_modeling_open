@@ -144,7 +144,75 @@ Run a pretrained model on a regression problem by commenting out the training co
 model = read_compressed_pickle("tree_model.gz")
 </code></pre>
 
+Run the training program by specifing the paths for regression problems and model output directory.
+
+<pre><code>
+python train_model.py X_experiment/regression_problems/reg_problem_train_reg_problem.gz X_experiment/regression_problems/reg_problem_val_reg_problem.gz .
+</code></pre>
+
+NOTE: Remember to set the value ranges when plotting (0 --> 70 for 'primary' and 0 --> 400 for 'secondary' experiment).
+
+<pre><code>
+plt.xlim([0,70])
+plt.ylim([0,70])
+</code></pre>
+
 The following files define the model training and inference part:
 - rainfall_modeling/train_model.py
 - rainfall_modeling/hierarchical_gmm.py
 - rainfall_modeling/binary_tree.py
+
+## File structure
+
+```
+rainfall_modeling_open
+└───boost_mst_lib
+│   │   boost_mst.cpp
+│   │   boost_mst.hpp
+│   │   boost_mst_lib.cpp
+│   
+└───feat_funcs
+|   |   feat_comp.py
+|   |   feat_intensity_statistics.py
+|   |   feat_mean_statistics.py
+|   |   feat_mst.py
+|   |   feat_radial_statistics.py
+|   |   mst_normalizer.py
+|
+|   variational_bayes_models          # Submodule with gate and expert models
+|   LICENSE
+│   README.md
+|   binary_tree.py                    # Tree-related functions for hierarchical modeling
+|   conv_dataset_to_reg_problem.py    # See 'Step 3'
+|   conv_training_data_to_dataset.py  # see 'Step 2'
+|   dataset_primary_exp.yaml          # Dataset and experiment configuration files 
+|   dataset_secondary_exp.yaml
+|   hierarchical_gmm.py               # Main model file
+|   init_exp_dirs.py 
+|   train_model.py     # Initialize a model for training and/or evaluation
+|   utils.py       # Utility functions such as reading and storing files
+|   viz.py         # Functions for visualizing pointclouds in datasets
+```
+
+## Feature vector specification
+
+```
+feature_vec (9, 1)
+|
+└───FeatMeanStdPnts
+|   |   mean  [0]
+|   |   std   [1]
+|
+└───FeatMeanStdIntensity
+|   |   mean    [2]
+|   |   median  [3]
+|   |   std     [4]
+|
+└───FeatMeanStdRadial
+|   |   mean  [5]
+|   |   std   [6]
+|
+└───FeatMstLength
+    |   mean  [7]
+    |   std   [8]
+```

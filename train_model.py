@@ -245,8 +245,8 @@ if __name__ == "__main__":
     plt.xlabel("Target rainfall [mm/h]")
     plt.ylabel("Predicted rainfall [mm/h]")
     plt.axis('scaled')
-    plt.xlim([0,400])
-    plt.ylim([0,400])
+    plt.xlim([0,70])
+    plt.ylim([0,70])
     
     plt.show()
 
