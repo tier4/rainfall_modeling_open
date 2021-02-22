@@ -15,32 +15,46 @@ Python3
 
 
 ### TL;DR
-1. Prepare `topics.txt`, `dataset.yaml`
-
-2. Input following commands
+1. Initialize
 <pre><code>
-$ cd YOUR-PATH/OVP_ML_pipe
-
-$ python2 convert_rosbags_to_training_data.py
-
-$ python3 convert_training_data_to_dataset.py
-
-$ cd ./boost_mst_lib
-
-$ g++ -O3 -Wall -shared -std=c++17 -fPIC `python3 -m pybind11 --includes` boost_mst_lib.cpp boost_mst.cpp -o boost_mst_lib`python3-config --extension-suffix`
-
-$ cd ../
-
-$ python3 gen_reg_problem.py PATH-TO-dataset_training.gz PATH-TO-dataset_validation.gz PATH-TO-OUTPUT-DIRECTORY
-
-$ python3 vb_log_reg.py PATH-TO-TRAINING-REG-PROBLEM.gz PATH-TO-VALIDATION-REG-PROBLEM.gz PATH-TO-MODEL-OUTPUT-DIRECTORY
-
-$ python3 insert_info_to_model.py PATH-TO-MODEL-FILE PATH-TO-MODEL-OUTPUT-DIRECTORY
-
+$ git clone git@github.com:rufuzzz0/rainfall_modeling_open.git
+$ cd rainfall_modeling_open
+$ git submodule init
+$ git submodule update
+$ export PYTHONPATH=.
 </code></pre>
 
-git clone --recurse-submodules git@github.com:rufuzzz0/rainfall_modeling_open.git
+2. Build library
+<pre><code>
+$ cd ./boost_mst_lib
+$ g++ -O3 -Wall -shared -std=c++17 -fPIC `python3 -m pybind11 --includes` boost_mst_lib.cpp boost_mst.cpp -o boost_mst_lib`python3-config --extension-suffix`
+$ cd ../
+</code></pre>
 
+3. Initialize experiment directory structure
+<pre><code>
+python init_exp_dirs.py
+</code></pre>
+
+4. Download data and rainfall table for experiment --> experiment directory structure
+
+5. Convert raw training data --> dataset
+
+<pre><code>
+$ python conv_training_data_to_dataset.py dataset_primary_exp.yaml
+</code></pre>
+
+6. Convert dataset --> regression problem
+
+<pre><code>
+$ python conv_dataset_to_reg_problem.py primary_experiments/datasets/dataset_training.gz primary_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs 4
+</code></pre>
+
+7. Train model
+
+<pre><code>
+$ python train_model.py primary_experiment/regression_problems/reg_problem_train_reg_problem.gz primary_experiment/regression_problems/reg_problem_val_reg_problem.gz .
+</code></pre>
 
 # How to use
 
@@ -53,11 +67,11 @@ Note that the repository contains one submodule that also needs to be initialize
 <pre><code>
 $ git clone git@github.com:rufuzzz0/rainfall_modeling_open.git
 
+$ cd rainfall_modeling_open
+
 $ git submodule init
 
 $ git submodule update
-
-$ cd rainfall_modeling_open
 
 $ export PYTHONPATH=.
 </code></pre>
@@ -98,7 +112,9 @@ The default configuration represent the best 'all data' model with sampling dura
 
 Note: Comment out all 'moving' bags when using crop sizes > 10 (i.e. only use stationary data).
 
-Run `python conv_training_data_to_dataset.py dataset_X_exp.yaml`
+<pre><code>
+$ python conv_training_data_to_dataset.py dataset_X_exp.yaml
+</code></pre>
 
 Two dataset files `dataset_training.gz` and `dataset_validation.gz` will be generated in the directory `X_experiment/datasets/` by default.
 
@@ -110,7 +126,7 @@ Optional: Visualize pointclouds of a dataset frame-by-frame by running `python v
 Generate the regression problem (i.e. sample feature vectors and sample target values represented as a data matrix and target vector from which to learn a regression model) by running the following command
 
 <pre><code>
-$ `python conv_dataset_to_reg_problem.py X_experiments/datasets/dataset_training.gz X_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs N`
+$ python conv_dataset_to_reg_problem.py X_experiments/datasets/dataset_training.gz X_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs N
 </code></pre>
 
 Two regression problem files `reg_prob_train_reg_problem.gz` and `reg_prob_val_reg_problem.gz` will be generated in the directory `X_experiment_datasets/` by default. `N` denotes the number of processes for multiprocessing.
