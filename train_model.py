@@ -119,14 +119,14 @@ if __name__ == "__main__":
     #domain_thresholds = [20, 10, 40, 5, 15, 30, 60, 2.5, 7.5, 12.5, 17.5, 25, 35, 50, 70]
     #tree_height = 3
     #domain_thresholds = [20, 10, 40, 5, 15, 30, 60]
-    #tree_height = 2
-    #domain_thresholds = [20., 10., 40.]
+    tree_height = 2
+    domain_thresholds = [20., 10., 40.]
     #tree_height = 1
     #domain_thresholds = [20]
 
     # Secondary experiment
-    tree_height = 3
-    domain_thresholds = [112.7, 47.0, 197.0, 21.2, 77.5, 152.5, 246.2]
+    #tree_height = 3
+    #domain_thresholds = [112.7, 47.0, 197.0, 21.2, 77.5, 152.5, 246.2]
 
     log_basis_deg = 2
     log_iter_max = 1000
@@ -245,8 +245,8 @@ if __name__ == "__main__":
     plt.xlabel("Target rainfall [mm/h]")
     plt.ylabel("Predicted rainfall [mm/h]")
     plt.axis('scaled')
-    plt.xlim([0,70])
-    plt.ylim([0,70])
+    plt.xlim([0,400])
+    plt.ylim([0,400])
     
     plt.show()
 

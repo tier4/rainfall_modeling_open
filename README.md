@@ -115,15 +115,36 @@ $ `python conv_dataset_to_reg_problem.py X_experiments/datasets/dataset_training
 
 Two regression problem files `reg_prob_train_reg_problem.gz` and `reg_prob_val_reg_problem.gz` will be generated in the directory `X_experiment_datasets/` by default. `N` denotes the number of processes for multiprocessing.
 
+### Step 4: Train model
 
+Train a model on a previously generated regression problem by modifying `train_model.py` with the desired gating tree depth and domain thresholds. The default configuration will train a tree depth 2 model with 'primary experiment' domain threshold values.
 
+<pre><code>
+###########
+#  Model
+###########
+...
+tree_height = 2
+domain_thresholds = [20., 10., 40.]
+...
+#################
+#  Train model
+#################
+model.train_tree(dataset)
+</code></pre>
 
-Train model
+Run a pretrained model on a regression problem by commenting out the training code and uncomment the line which loads a model from file.
 
-rainfall_modeling/train_model.py
-rainfall_modeling/hierarchical_gmm.py
-rainfall_modeling/binary_tree.py
+<pre><code>
+#################
+#  Train model
+#################
+#model.train_tree(dataset)
+...
+model = read_compressed_pickle("tree_model.gz")
+</code></pre>
 
-
-
-Visualization instruction
+The following files define the model training and inference part:
+- rainfall_modeling/train_model.py
+- rainfall_modeling/hierarchical_gmm.py
+- rainfall_modeling/binary_tree.py
