@@ -4,6 +4,7 @@
 path_to_target_value_file: "primary_experiment/rainfall_table.csv"
 path_to_training_data:  "primary_experiment/raw_data"
 path_to_dataset: "primary_experiment/datasets"
+path_to_reg_problem: "primary_experiment/regression_problems"
 
 ###################################
 #  DATASET GENERATION PARAMETERS

@@ -90,14 +90,14 @@ def generate_sample(sample_sequence):
     return (feat_vec, target_val)
 
 
-def generate_regression_problem(dataset_path: str, dataset_name: str, output_path: str, split_test: float, dataset_yaml: dict, nprocs:int=1):
+def generate_regression_problem(dataset_path: str, dataset_name: str, dataset_yaml: dict, nprocs:int=1):
     '''
     '''
     print("\nGenerating regression problem")
     print(f"    dataset_path: {dataset_path}")
     print(f"    dataset_name: {dataset_name}")
-    print(f"    output_path:  {output_path}")
     print(f"    nprocs: {nprocs}")
+    output_path = dataset_yaml["path_to_reg_problem"]
 
     try:
         dataset = read_compressed_pickle(dataset_path)
@@ -138,10 +138,6 @@ if __name__ == "__main__":
         type=str, 
         help='Path to the validation dataset file')
     parser.add_argument(
-        'output_path', 
-        type=str, 
-        help='Path where to output regression problem files')
-    parser.add_argument(
         'dataset_config_path',
         type=str,
         help='Path locating the dataset configuration file')
@@ -152,7 +148,6 @@ if __name__ == "__main__":
     dataset_config_path = args.dataset_config_path
     dataset_train_path = args.dataset_train_path
     dataset_val_path = args.dataset_val_path
-    output_path = args.output_path
     output_filename = args.output_filename
     nprocs = args.nprocs
 
@@ -164,8 +159,8 @@ if __name__ == "__main__":
 
     print_box("Training dataset")
 
-    generate_regression_problem(dataset_train_path, "reg_prob_train_"+output_filename, output_path, 0.2, dataset_yaml, nprocs)
+    generate_regression_problem(dataset_train_path, "reg_prob_train_"+output_filename, dataset_yaml, nprocs)
 
     print_box("Validation dataset")
 
-    generate_regression_problem(dataset_val_path, "reg_prob_val_"+output_filename, output_path, 1.0, dataset_yaml, nprocs)
+    generate_regression_problem(dataset_val_path, "reg_prob_val_"+output_filename, dataset_yaml, nprocs)

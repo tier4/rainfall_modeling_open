@@ -15,9 +15,9 @@ def create_dir_structure(name:str):
     dirs = []
     dirs.append(os.path.join(dir_root, 'trained_models'))
     dirs.append(os.path.join(dir_root, 'regression_problems'))
-    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_box_10'))
-    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_box_15'))
-    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_box_20'))
+    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_10'))
+    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_15'))
+    dirs.append(os.path.join(dir_root, 'raw_data', 'crop_20'))
     dirs.append(os.path.join(dir_root, 'datasets'))
 
     for dir in dirs:
