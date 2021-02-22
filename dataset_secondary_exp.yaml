@@ -5,41 +5,6 @@ path_to_target_value_file: "secondary_experiment/rainfall_table.csv"
 path_to_training_data:  "secondary_experiment/raw_data"
 path_to_dataset: "secondary_experiment/datasets"
 
-#########################
-#  CROP BOX PARAMETERS
-#########################
-crop:
-  x_range:
-    crop: True
-    min: -5
-    max: 5
-  y_range:
-    crop: True
-    min: -5
-    max: 5
-  z_range:
-    crop: True
-    min: -1
-    max: 4
-  intensity_range:
-    crop: True
-    min: 0
-    max: 20
-
-inner_crop:
-  x_range:
-    crop: True
-    min: -0.8
-    max: 0.8
-  y_range:
-    crop: True
-    min: -2
-    max: 1.2
-  z_range:
-    crop: True
-    min: -1
-    max: -0.4
-
 ###################################
 #  DATASET GENERATION PARAMETERS
 ###################################
@@ -54,3 +19,36 @@ consecutive_samples: 100
 sample_interval: 1
 # Sample stepping
 sample_stepping: 10
+
+################################
+#  TRAINING BAG SPECIFICATION
+################################
+crop_size: 10
+bags:
+  - {name: "NIED_15mm_1", segments: [1]}
+  - {name: "NIED_15mm_2", segments: [1]}
+  - {name: "NIED_15mm_3", segments: [1]}
+
+  - {name: "NIED_30mm_1", segments: [1]}
+  - {name: "NIED_30mm_2", segments: [1]}
+  - {name: "NIED_30mm_3", segments: [1]}
+
+  - {name: "NIED_50mm_1", segments: [1]}
+  - {name: "NIED_50mm_2", segments: [1]}
+  - {name: "NIED_50mm_3", segments: [1]}
+
+  - {name: "NIED_80mm_1", segments: [1]}
+  - {name: "NIED_80mm_2", segments: [1]}
+  - {name: "NIED_80mm_3", segments: [1]}
+
+  - {name: "NIED_180mm_1", segments: [1]}
+  - {name: "NIED_180mm_2", segments: [1]}
+
+  - {name: "NIED_300mm_1", segments: [1]}
+  - {name: "NIED_300mm_2", segments: [1]}
+
+##############################
+#  VALIDATION BAG SELECTION
+##############################
+val_bags:
+  - {name: "NIED_15mm_1", segments: [1]}

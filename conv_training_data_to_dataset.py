@@ -116,7 +116,7 @@ def generate_dataset(
 
     # Randomly permutate dataset
     if shuffle:
-        dataset = np.random.permutation(dataset)
+        random.shuffle(dataset)
 
     print(f"  Samples: {len(dataset)}")
 

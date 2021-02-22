@@ -14,7 +14,7 @@ shuffle: True
 compression: 1
 # Number of samples to store in a single training sample (for computing statistics)
 #     1 sample <==> 0.1 sec
-consecutive_samples: 100
+consecutive_samples: 150
 # Sampling interval (ex: 140 / 10 => sequence of 14 samples)
 sample_interval: 1
 # Sample stepping
