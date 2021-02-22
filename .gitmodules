@@ -1,0 +1,3 @@
+[submodule "variational_bayes_models"]
+	path = variational_bayes_models
+	url = https://github.com/rufuzzz0/variational_bayes_models.git
