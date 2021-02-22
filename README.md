@@ -189,9 +189,9 @@ rainfall_modeling_open
 |   dataset_secondary_exp.yaml
 |   hierarchical_gmm.py               # Main model file
 |   init_exp_dirs.py 
-|   train_model.py     # Initialize a model for training and/or evaluation
-|   utils.py       # Utility functions such as reading and storing files
-|   viz.py         # Functions for visualizing pointclouds in datasets
+|   train_model.py  # Initialize a model for training and/or evaluation
+|   utils.py        # Utility functions such as reading and storing files
+|   viz.py          # Functions for visualizing pointclouds in datasets
 ```
 
 ## Feature vector specification
