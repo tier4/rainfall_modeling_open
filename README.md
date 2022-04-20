@@ -14,10 +14,9 @@ Python3
     - tqdm
 
 
-### TL;DR
+# TL;DR
 1. Initialize
-<pre><code>
-$ git clone git@github.com:rufuzzz0/rainfall_modeling_open.git
+<pre><code>$ git clone https://github.com/tier4/rainfall_modeling_open.git
 $ cd rainfall_modeling_open
 $ git submodule init
 $ git submodule update
@@ -25,52 +24,46 @@ $ export PYTHONPATH=.
 </code></pre>
 
 2. Build library
-<pre><code>
-$ cd ./boost_mst_lib
+<pre><code>$ cd ./boost_mst_lib
 $ g++ -O3 -Wall -shared -std=c++17 -fPIC `python3 -m pybind11 --includes` boost_mst_lib.cpp boost_mst.cpp -o boost_mst_lib`python3-config --extension-suffix`
 $ cd ../
 </code></pre>
 
 3. Initialize experiment directory structure
-<pre><code>
-python init_exp_dirs.py
+<pre><code>python init_exp_dirs.py
 </code></pre>
 
 4. Download data and rainfall table for experiment --> experiment directory structure
 
+ADD PUBLIC LINK HERE !!!
+
 5. Convert raw training data --> dataset
 
-<pre><code>
-$ python conv_training_data_to_dataset.py dataset_primary_exp.yaml
+<pre><code>$ python conv_training_data_to_dataset.py dataset_primary_exp.yaml
 </code></pre>
 
 6. Convert dataset --> regression problem
 
-<pre><code>
-$ python conv_dataset_to_reg_problem.py primary_experiments/datasets/dataset_training.gz primary_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs 4
+<pre><code>$ python conv_dataset_to_reg_problem.py primary_experiments/datasets/dataset_training.gz primary_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs 4
 </code></pre>
 
 7. Train model
 
-<pre><code>
-$ python train_model.py primary_experiment/regression_problems/reg_problem_train_reg_problem.gz primary_experiment/regression_problems/reg_problem_val_reg_problem.gz .
+<pre><code>$ python train_model.py primary_experiment/regression_problems/reg_problem_train_reg_problem.gz primary_experiment/regression_problems/reg_problem_val_reg_problem.gz .
 </code></pre>
 
 # How to use
 
-Note: In filenames, `X` denotes `primary` or `secondary` depending desired experiment.
+Note: In filenames, substitute `X` with `primary` or `secondary` depending desired experiment.
 
 ### Initialize repository
 
 Note that the repository contains one submodule that also needs to be initialized.
 
-<pre><code>
-$ git clone git@github.com:rufuzzz0/rainfall_modeling_open.git
-
+<pre><code>$ git clone https://github.com/tier4/rainfall_modeling_open.git
 $ cd rainfall_modeling_open
 
 $ git submodule init
-
 $ git submodule update
 
 $ export PYTHONPATH=.
@@ -80,8 +73,7 @@ $ export PYTHONPATH=.
 
 The C++ library `boost_mst_lib` need to be built before being used for feature vector generation.
 
-<pre><code>
-$ cd ./boost_mst_lib
+<pre><code>$ cd ./boost_mst_lib
 
 $ g++ -O3 -Wall -shared -std=c++17 -fPIC `python3 -m pybind11 --includes` boost_mst_lib.cpp boost_mst.cpp -o boost_mst_lib`python3-config --extension-suffix`
 
@@ -112,8 +104,7 @@ The default configuration represent the best 'all data' model with sampling dura
 
 Note: Comment out all 'moving' bags when using crop sizes > 10 (i.e. only use stationary data).
 
-<pre><code>
-$ python conv_training_data_to_dataset.py dataset_X_exp.yaml
+<pre><code>$ python conv_training_data_to_dataset.py dataset_X_exp.yaml
 </code></pre>
 
 Two dataset files `dataset_training.gz` and `dataset_validation.gz` will be generated in the directory `X_experiment/datasets/` by default.
@@ -125,34 +116,33 @@ Optional: Visualize pointclouds of a dataset frame-by-frame by running `python v
 
 Generate the regression problem (i.e. sample feature vectors and sample target values represented as a data matrix and target vector from which to learn a regression model) by running the following command
 
-<pre><code>
-$ python conv_dataset_to_reg_problem.py X_experiments/datasets/dataset_training.gz X_experiments/datasets/dataset_validation.gz dataset_X_exp.yaml --nprocs N
+<pre><code>$ python conv_dataset_to_reg_problem.py primary_experiment/datasets/dataset_training.gz primary_experiment/datasets/dataset_validation.gz dataset_primary_exp.yaml --nprocs N
 </code></pre>
 
-Two regression problem files `reg_prob_train_reg_problem.gz` and `reg_prob_val_reg_problem.gz` will be generated in the directory `X_experiment_datasets/` by default. `N` denotes the number of processes for multiprocessing.
+Two regression problem files `reg_prob_train_reg_problem.gz` and `reg_prob_val_reg_problem.gz` will be generated in the directory `primary_experiment_datasets/` by default. `N` denotes the number of processes for multiprocessing.
 
 ### Step 4: Train model
 
 Train a model on a previously generated regression problem by modifying `train_model.py` with the desired gating tree depth and domain thresholds. The default configuration will train a tree depth 2 model with 'primary experiment' domain threshold values.
 
-<pre><code>
-###########
+<pre><code>###########
 #  Model
 ###########
 ...
 tree_height = 2
 domain_thresholds = [20., 10., 40.]
 ...
+
 #################
 #  Train model
 #################
 model.train_tree(dataset)
+# model.train_tree_mp(dataset, 4)  <-- Exchange for multiprocessing w. 4 threads
 </code></pre>
 
 Run a pretrained model on a regression problem by commenting out the training code and uncomment the line which loads a model from file.
 
-<pre><code>
-#################
+<pre><code>#################
 #  Train model
 #################
 #model.train_tree(dataset)
@@ -162,14 +152,12 @@ model = read_compressed_pickle("tree_model.gz")
 
 Run the training program by specifing the paths for regression problems and model output directory.
 
-<pre><code>
-python train_model.py X_experiment/regression_problems/reg_problem_train_reg_problem.gz X_experiment/regression_problems/reg_problem_val_reg_problem.gz .
+<pre><code>python train_model.py primary_experiment/regression_problems/reg_problem_train_reg_problem.gz primary_experiment/regression_problems/reg_problem_val_reg_problem.gz .
 </code></pre>
 
 NOTE: Remember to set the value ranges when plotting (0 --> 70 for 'primary' and 0 --> 400 for 'secondary' experiment).
 
-<pre><code>
-plt.xlim([0,70])
+<pre><code>plt.xlim([0,70])
 plt.ylim([0,70])
 </code></pre>
 
