@@ -1,5 +1,9 @@
-# rainfall_modeling_open
-Code to reproduce results in the paper 'Probabilistic Rainfall Estimation from Automotive Lidar'
+# Probabilistic Rainfall Estimation from Automotive Lidar
+This repository contain code to reproduce results in the paper 'Probabilistic Rainfall Estimation from Automotive Lidar' published at IV 2022.
+
+Paper link: [Probabilistic Rainfall Estimation from Automotive Lidar](https://arxiv.org/abs/2104.11467)
+
+Shared public data (incl. pretrained models): [Google Drive directory](https://drive.google.com/drive/folders/1obveNAUWUdvUs5IQtXilB7VBWb7myk0p?usp=sharing)
 
 
 ### Dependency
@@ -13,6 +17,7 @@ Python3
     - scikit-learn
     - tqdm
 
+![header_image](https://user-images.githubusercontent.com/34254153/170935996-a26a1096-b279-43e3-afb4-a6c1f28c62ab.png)
 
 # TL;DR
 1. Initialize
@@ -35,7 +40,7 @@ $ cd ../
 
 4. Download data and rainfall table for experiment --> experiment directory structure
 
-ADD PUBLIC LINK HERE !!!
+[Google Drive directory](https://drive.google.com/drive/folders/1obveNAUWUdvUs5IQtXilB7VBWb7myk0p?usp=sharing)
 
 5. Convert raw training data --> dataset
 
